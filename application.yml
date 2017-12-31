@@ -1,0 +1,19 @@
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter: DEBUG
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+
+#spring:
+#  rabbitmq:
+#    host: localhost
+#    port: 5672
+#    username: guest
+#    password: guest

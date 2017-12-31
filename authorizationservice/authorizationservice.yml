@@ -1,0 +1,98 @@
+spring:
+  profiles:
+    active: local
+server:
+  port: 8901
+
+---
+spring:
+  profiles: local
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: "true"
+    properties:
+      hibernate:
+        dialect: "org.hibernate.dialect.MySQL5Dialect"
+  database:
+    driverClassName: "com.mysql.jdbc.Driver"
+  datasource:
+    #url: "jdbc:mysql://mysql-aws.c4v3j9tgecmv.us-east-1.rds.amazonaws.com:3306/itemsharingdatabase"
+    url: "jdbc:mysql://localhost:3306/itemsharingdatabase"
+    #username: "root"
+    username: "root"
+    #password: "mysql123"
+    password: "{cipher}b6fb15d59e5607bf6f59fdf86a89b726a16a4d6c095527008e340bc7c424b865"
+    #password: "{cipher}de8a2140acf533afcd9e1ee6f9156226581120ed6b49187e376694db634b7bad"
+    testWhileIdle: "true"
+    validationQuery: "SELECT 1"
+    driver-class: com.mysql.jdbc.Driver
+
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://localhost:8901/user
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+      
+signing:
+  key: 345345fsdgsf5345
+
+management:
+  security:
+    enabled: false
+
+---
+spring:
+  profiles: docker
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: "true"
+    properties:
+      hibernate:
+        dialect: "org.hibernate.dialect.MySQL5Dialect"
+  database:
+    driverClassName: "com.mysql.jdbc.Driver"
+  datasource:
+    #url: "jdbc:mysql://mysql-aws.c4v3j9tgecmv.us-east-1.rds.amazonaws.com:3306/itemsharingdatabase"
+    url: "jdbc:mysql://mysql:3306/itemsharingdatabase"
+    #username: "root"
+    username: "root"
+    #password: "mysql123"
+    password: "{cipher}b6fb15d59e5607bf6f59fdf86a89b726a16a4d6c095527008e340bc7c424b865"
+    #password: "{cipher}de8a2140acf533afcd9e1ee6f9156226581120ed6b49187e376694db634b7bad"
+    testWhileIdle: "true"
+    validationQuery: "SELECT 1"
+    driver-class: com.mysql.jdbc.Driver
+
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://authorizationservice:8901/user
+    
+server:
+  port: 8901
+  
+#eureka:
+#  instance:
+#    preferIpAddress: true
+#  client:
+#    registerWithEureka: true
+#    fetchRegistry: true
+#    serviceUrl:
+#      defaultZone: http://eurekaservice:8761/eureka
+      
+signing:
+  key: 345345fsdgsf5345
+
+management:
+  security:
+    enabled: false

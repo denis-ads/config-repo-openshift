@@ -1,0 +1,117 @@
+spring:
+  profiles:
+    active: local
+# security:
+#   basic:
+#     enabled: false
+    
+server:
+  port: 5555
+
+---
+spring:
+  profiles: local
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+      
+zuul:
+  routes:
+    userservice: 
+      path: /user/**
+      serviceId: userserver
+      stripPrefix: false
+    itemservice: 
+      path: /item/**
+      serviceId: itemserver
+      stripPrefix: false
+    authorizationservice: 
+      path: /uaa/**
+      stripPrefix: false
+      serviceId: authorizationserver
+
+
+  ignored-services: '*'
+  prefix: /api
+  sensitive-headers: Cookie, Set-Cookie
+  
+    
+#Setting the logging levels for the service
+logging:
+  level:
+    com.netflix: WARN
+    org.springframework.web: WARN
+    com.itemsharing: DEBUG
+
+management:
+  security:
+    enabled: false
+
+# hystrix:
+#   command:
+#     choose:
+#       default:
+#         execution:
+#           timeout:
+#             enabled: false
+
+itemservice.ribbon.ReadTimeout: 5000
+userservice.ribbon.ReadTimeout: 5000
+authorizationservice.ribbon.ReadTimeout: 5000
+
+
+---
+spring:
+  profiles: docker
+
+# eureka:
+#   instance:
+#     preferIpAddress: true
+#   client:
+#     registerWithEureka: true
+#     fetchRegistry: true
+#     serviceUrl:
+#       defaultZone: http://eurekaservice:8761/eureka
+#       #http://54.235.233.109:8761/eureka
+      
+zuul:
+  routes:
+    userservice: /user/**
+    itemservice: /item/**
+    authorizationservice: /uaa/**
+      #path: /uaa/**
+      #stripPrefix: false
+      #sensitiveHeaders:
+
+  ignored-services: '*'
+  #prefix: /api
+  sensitive-headers: Cookie, Set-Cookie
+
+#Setting the logging levels for the service
+logging:
+  level:
+    com.netflix: WARN
+    org.springframework.web: WARN
+    com.itemsharing: DEBUG
+
+management:
+  security:
+    enabled: false
+
+# hystrix:
+#   command:
+#     choose:
+#       default:
+#         execution:
+#           timeout:
+#             enabled: false
+
+itemservice.ribbon.ReadTimeout: 5000
+userservice.ribbon.ReadTimeout: 5000
+authorizationservice.ribbon.ReadTimeout: 5000

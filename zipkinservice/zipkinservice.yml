@@ -1,0 +1,43 @@
+spring:
+  profiles:
+    active: local
+
+server:
+  port: 9411
+  
+logging:
+  level:
+    com.netflix: WARN
+    com.springframework.web: WARN
+    com.itemsharing: DEBUG
+management:
+  security:
+    enabled: false
+
+---
+spring:
+  profiles: local
+
+eureka:
+  instance:
+    perferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+      #http://54.235.233.109:8761/eureka/
+
+---
+spring:
+  profiles: docker
+  
+# eureka:
+#   instance:
+#     perferIpAddress: true
+#   client:
+#     registerWithEureka: true
+#     fetchRegistry: true
+#     serviceUrl:
+#       defaultZone: http://eurekaservice:8761/eureka/
+#       #http://54.235.233.109:8761/eureka/
