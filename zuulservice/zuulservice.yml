@@ -82,9 +82,15 @@ spring:
       
 zuul:
   routes:
-    userservice: /user/**
-    itemservice: /item/**
-    authorizationservice: /uaa/**
+    userservice: 
+      path: /user/**
+      url: http://userservice:8081/
+    itemservice: 
+      path: /item/**
+      url: http://itemservice:8082/
+    authorizationservice:
+      path: /uaa/**
+      url: http://authorizationservice:8901/
       #path: /uaa/**
       #stripPrefix: false
       #sensitiveHeaders:
